@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+
+    <f:metadata>
+        <f:viewAction action="#{instrumentEditBB.onLoad()}" />
+    </f:metadata>
+    <h:head>
+        <meta charset="utf-8"/>
+        <title>Edycja</title>
+    </h:head>
+    <h:body style="background-color: #eee; margin: 0.5em;">
+        <p:panel toggleable="true" header="Edycja instrumentu">
+            <h:form rendered="#{instrumentEditBB.instrument != null}">
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <h:outputLabel for="i-name" value="Nazwa:" />
+                    <p:inputText id="i-name" value="#{instrumentEditBB.instrument.name}"
+                                 required="true" requiredMessage="Podaj nazwę"
+                                 validatorMessage="co najwyżej 40 znaków">
+                        <f:validateLength maximum="40" />
+                    </p:inputText>
+                    <p:message for="i-name" display="icon"/>
+                    <h:outputLabel for="i-price" value="Cena:" />
+                    <p:inputText id="i-price" value="#{instrumentEditBB.instrument.price}"
+                                 required="true" requiredMessage="Podaj cenę"
+                                 converterMessage="niepoprawny format ceny">
+                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2"/>
+                    </p:inputText>
+                    <p:message for="i-price" display="icon"/>
+                    <h:outputLabel for="i-type" value="Typ instrumentu:" />
+                    <p:inputText id="i-type" value="#{instrumentEditBB.instrument.instrumentType}"
+                                 required="true" requiredMessage="Podaj typ instrumentu"
+                                 validatorMessage="co najwyżej 40 znaków">
+                        <f:validateLength maximum="40" />
+                    </p:inputText>
+                    <p:message for="i-type" display="icon"/>
+                </h:panelGrid>
+                <p:messages id="msgs" />
+                <p:commandButton value="Zapisz" action="#{instrumentEditBB.saveData()}"
+                                 style="margin-right: 1em;" update="@form" />
+                <p:button value="Anuluj" outcome="instrumentList" />
+            </h:form>
+        </p:panel>
+    </h:body>
+</html>
